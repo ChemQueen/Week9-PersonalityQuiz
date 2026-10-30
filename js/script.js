@@ -62,7 +62,10 @@ showResultBtn.addEventListener("click", function() {
     let talliedScore = displayResult(userAnswers);
 
     // Update the text inside <div id='result-container"> by getting 'result-text' and modifying.
-    let quizResult = document.getElementById("result-text")
+    let quizResult = document.getElementById("result-text");
     quizResult.textContent = "Your quiz score is " + talliedScore + "!";
+
+    // Claude consulted re: how to show the id='result-container'
+    document.getElementById("result-container").style.display = "block";
 });
 
