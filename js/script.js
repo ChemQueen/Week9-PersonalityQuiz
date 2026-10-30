@@ -55,13 +55,14 @@ function displayResult(userAnswers) {
     return(userScore);
 }
 
-// Function displayResult call that returns userScore renamed to talliedScore)
-let talliedScore = displayResult(userAnswers);
+let showResultBtn = document.getElementById("show-result");
 
-// Update the text inside <div id='result-container"> by getting 'result-text' and modifying.
-let quizResult = document.getElementById("result-text")
-quizResult.textContent = "Your quiz score is " + talliedScore + "!";
+showResultBtn.addEventListener("click", function() {
+    // Function displayResult call that returns userScore renamed to talliedScore)
+    let talliedScore = displayResult(userAnswers);
 
-
-
+    // Update the text inside <div id='result-container"> by getting 'result-text' and modifying.
+    let quizResult = document.getElementById("result-text")
+    quizResult.textContent = "Your quiz score is " + talliedScore + "!";
+});
 
