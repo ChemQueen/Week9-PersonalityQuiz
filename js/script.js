@@ -41,3 +41,27 @@ questions.forEach(function(question) {
     })
 })
 
+function displayResult(userAnswers) {
+    // Tally users stored answers using quiz scoring logic
+
+    let userScore = 0;
+    
+    for (let i=1; i <= 3; i++) {
+        if (userAnswers[i] === 'A') {
+            userScore +=1;   
+        }  
+    }
+    
+    return(userScore);
+}
+
+// Function displayResult call that returns userScore renamed to talliedScore)
+let talliedScore = displayResult(userAnswers);
+
+// Update the text inside <div id='result-container"> by getting 'result-text' and modifying.
+let quizResult = document.getElementById("result-text")
+quizResult.textContent = "Your quiz score is " + talliedScore + "!";
+
+
+
+
