@@ -5,14 +5,14 @@ let userAnswers = {};
 
 // Select all questions inside the #question-block container
 let questions = document.querySelectorAll(".question-block");
-// Debugging check: should print a Nodelist of 3 questions. Remove before finishing
+// Debugging check: should print a Nodelist of 3 questions. 
 console.log(questions);
 
 questions.forEach(function(question) {
 // Code you want to run for each question
     // Select all answer buttons inside the #answer-btn container so we can attach click behavior
     let buttons = question.querySelectorAll(".answer-btn");
-    // Debugging check: should print a Nodelist of 2 buttons. Remove before finishing
+    // Debugging check: should print a Nodelist of 2 buttons. 
     console.log(buttons);
 
     buttons.forEach(function(button) {
@@ -45,6 +45,8 @@ function displayResult(userAnswers) {
     // Tally users stored answers using quiz scoring logic
 
     let userScore = 0;
+    let quizResult = "";
+    let quizChemistry = "";
     
     for (let i=1; i <= 3; i++) {
         if (userAnswers[i] === 'A') {
@@ -52,18 +54,59 @@ function displayResult(userAnswers) {
         }  
     }
     
-    return(userScore);
+    console.log("userScore is " + userScore)
+    
+    if (userScore === 3) {
+        quizResult = ("Your element is GOLD (Au) - You're dependable and you don't tarnish under pressure. You rarely react to drama, and everyone knows you're worth having around.");
+        quizChemistry = ("The chemistry - Gold is one of the least reactive metals and does not corrode in air or water.");
+    } else if (userScore === 2) {
+        quizResult = ("Your element is CARBON (C) - You're versatile and you bond with everyone. Whether the group needs a study partner, a road trip buddy, or a mediator, you can fill the role.");
+        quizChemistry = ("The chemistry - Carbon forms four bonds and links with itself and many other elements, which is the basis of organic chemistry.");
+
+    } else if (userScore === 1) {
+        quizResult = ("Your element is NEON (Ne) - You light up any room you walk into, but you keep your own energy. You're fun to be around and you're not easily pulled into other people's reactions.");
+        quizChemistry = ("The chemistry - Neon is a noble gas with a full outer shell, so it essentially forms no compounds, and it glows when an electric current passes through it.");
+    }
+    else if (userScore === 0) {
+        quizResult = ("Your element is SODIUM (Na) - You're highly reactive and dramatic, and things get interesting when you're added to the mix. Please keep away from water.");
+        quizChemistry = ("The chemistry - Sodium is an alkali metal with one outer electron. It reacts vigorously with water and is stored under oil.");
+    }
+
+    console.log(quizResult);
+    console.log(quizChemistry);
+
+    return {result: quizResult, chemistry: quizChemistry};
 }
 
 let showResultBtn = document.getElementById("show-result");
 
 showResultBtn.addEventListener("click", function() {
     // Function displayResult call that returns userScore renamed to talliedScore)
-    let talliedScore = displayResult(userAnswers);
+    let quizOutput = displayResult(userAnswers);
 
     // Update the text inside <div id='result-container"> by getting 'result-text' and modifying.
-    let quizResult = document.getElementById("result-text");
-    quizResult.textContent = "Your quiz score is " + talliedScore + "!";
+    let resultText = document.getElementById("result-text");
+    resultText.textContent = quizOutput.result;
+    let resultChemistry = document.getElementById("result-chemistry");
+    resultChemistry.textContent = quizOutput.chemistry;
+
+    /*
+    if (talliedScore === 3) {
+        console.log("Your element is GOLD (Au) - You're dependable and you don't tarnish under pressure. You rarely react to drama, and everyone knows you're worth having around.");
+        console.log("The chemistry - Gold is one of the least reactive metals and does not corrode in air or water.");
+    } else if (talliedScore === 2) {
+        console.log("Your element is CARBON (C) - You're versatile and you bond with everyone. Whether the group needs a study partner, a road trip buddy, or a mediator, you can fill the role.");
+        console.log("The chemistry - Carbon forms four bonds and links with itself and many other elements, which is the basis of organic chemistry.");
+
+    } else if (talliedScore === 1) {
+        console.log("Your element is NEON (Ne) - You light up any room you walk into, but you keep your own energy. You're fun to be around and you're not easily pulled into other people's reactions.");
+        console.log("The chemistry - Neon is a noble gas with a full outer shell, so it essentially forms no compounds, and it glows when an electric current passes through it.");
+    }
+    else if (talliedScore === 0) {
+        console.log("Your element is SODIUM (Na) - You're highly reactive and dramatic, and things get interesting when you're added to the mix. Please keep away from water.");
+        console.log("The chemistry - Sodium is an alkali metal with one outer electron. It reacts vigorously with water and is stored under oil.");
+    }
+    */
 
     // Claude consulted re: how to show the id='result-container'
     document.getElementById("result-container").style.display = "block";
